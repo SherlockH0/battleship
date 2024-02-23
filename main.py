@@ -43,9 +43,11 @@ ships = [
 
 
 class bcolors:
-    HEADER = '\033[95m'
     BLUE = '\033[34m'
     BLACK = '\033[2m'
+    GRAY = '\033[40m'
+    BLINK = '\033[5m'
+    GREEN = '\033[46m'
     ENDC = '\033[0m'
     UNDERLINE = '\033[4m'
 
@@ -109,16 +111,19 @@ class Field():
             for block in self.field[row]:
                 index = block
 
+
                 if shaddow and block >= 5:
                     index = 0
                 elif block == 1:
                     for ship in dots:
+
                         ...
 
                 print(blocks[index], end=" ")
+
             print("│")
         print(" ╰" + "─" * 22 + "╯")
-        print(bcolors.ENDC)
+
 
     def hit(self, x, y):
         x = x - 1
@@ -145,7 +150,9 @@ while True:
 
     print()
     my_field.draw(True)
-    print("        " + messege)
+    print(bcolors.ENDC)
+    print(bcolors.BLINK, bcolors.GREEN, end="")
+    print("       " + messege + "       " + bcolors.ENDC)
     my_field.draw()
 
     pos = input("Enter hit position: ")
@@ -155,7 +162,7 @@ while True:
     h = my_field.hit(int(pos[0]), int(pos[1]))
 
     if h == 0:
-        messege = f"{bcolors.FAIL}You already shot this cell!{bcolors.ENDC}"
+        messege = "You already shot this cell!"
     elif h == 1:
         messege = "MISS!"
     elif h == 2:
